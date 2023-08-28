@@ -1,0 +1,114 @@
+---
+title: "summary of flowchart"
+output:
+  html_document:
+    df_print: paged
+  pdf_document:
+    fig_caption: yes
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+geometry: left=0cm, right=0cm, top=0cm, bottom=0cm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = '/Users/janemou/Documents/projects/work/flowchart')
+library(tidyverse)
+library(DiagrammeR)
+library(gtsummary)
+library(kableExtra)
+library(lubridate)
+library(janitor)
+library(readxl)
+library(REDCapR)
+library(vtable)
+library(lubridate)
+library(haven)
+
+```
+\vspace{-5truemm}
+
+```{r flowchart, echo=FALSE}
+grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = 'Helvetica', 
+        fontsize = 30]
+  A [label = <
+  <b>Total number of fruits</b><br/>1,000
+  >, width = 12];
+  B [label = <
+    Rotten fruits: 100
+    >, width = 7];
+  C [label = <
+    Expired fruits: 20
+    >, width = 7];
+  D [label = <
+    Infested fruits: 10
+    >, width = 7];
+  E [label = <
+    Bad looking fruits: 90
+    >, width = 7] 
+  F [label = <
+    Missing fruits: 20
+  >, width = 7]
+  G [label = <<b>Edible fruits</b><br/>760>, width = 12];
+  H [label = <<b>Edible fruits plus previous supply</b><br/>800>, width = 12];
+  I [label = <
+    Fruits sold to merchant A: 460 
+  >, width = 7];
+  J [label = <<b>Remaining fruits left</b><br/>340>, width = 12];
+  K [label = <
+  Fruits that merchant A returned: 107
+  >, width = 7];
+  L [label = <<b>Fruits remaining</b><br/>233>, width = 12];
+  
+  # Empty nodes
+  node [shape = none, width = 0, height = 0, label = '']
+  p1 -> p2 [arrowhead = 'none'];
+  p2 -> p3 [arrowhead = 'none'];
+  p3 -> p4 [arrowhead = 'none'];
+  p4 -> p5 [arrowhead = 'none'];
+  p5 -> G;
+  p6 -> J;
+  p7 -> L;
+  {rank=same; p1 -> B [minlen = 20]};
+  {rank=same; p2 -> C [minlen = 20]};
+  {rank=same; p3 -> D [minlen = 20]};
+  {rank=same; p4 -> E [minlen = 20]};
+  {rank=same; p5 -> F [minlen = 20]};
+  {rank=same; p6 -> I [minlen = 20]};
+  {rank=same; p7 -> K [minlen = 20]};
+  # several 'edge' statements
+  G->H
+  
+  edge [dir=none]
+  A->p1
+  H->p6
+  J->p7
+}
+
+[1]: '@@1'
+[2]: '@@2'
+[3]: '@@3'
+[4]: '@@4'
+[5]: '@@5'
+[6]: '@@6'
+[7]: '@@7'
+[8]: '@@8'
+[9]: '@@9'
+[10]: '@@10'
+[11]: '@@11'
+[12]: '@@12'
+[13]: '@@13'
+[14]: '@@14'
+[15]: '@@15'
+[16]: '@@16'
+", height = 850)
+
+```
+
